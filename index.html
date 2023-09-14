@@ -17,6 +17,11 @@
     <button id="LoadReactors" onclick="LoadReactors()" class="SelectButton">Reactors</button>
     <button id="LoadShields" onclick="LoadShields()" class="SelectButton">Shields</button>
 
+    <div>Level Range</div>
+        <input id="min" value="0" min="0" max="60" type="number">
+        <input id="max" value="60" min="0" max="60" type="number">
+      
+    <button onclick="FillRows()">Adjust Levelrange</button>
     <br>
     <table id="MainTable">
         <tr id="HeaderRow"></tr>

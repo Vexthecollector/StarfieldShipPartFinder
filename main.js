@@ -51,7 +51,7 @@ var datarows = []
 
 async function LoadFile(FileName) {
     starterrows = []
-    regexp=/(?!\B"[^"]*),(?![^"]*"\B)/g
+    regexp = /(?!\B"[^"]*),(?![^"]*"\B)/g
     await fetch(FileName)
         .then((res) => res.text())
         .then((text) => {
@@ -83,27 +83,27 @@ function FillTable() {
 
 }
 
-async function CleanElements(){
+async function CleanElements() {
     Array.from(document.querySelectorAll('.sortedA')).forEach(
         (el) => el.classList.remove('sortedA')
-      );
-      Array.from(document.querySelectorAll('.sortedD')).forEach(
+    );
+    Array.from(document.querySelectorAll('.sortedD')).forEach(
         (el) => el.classList.remove('sortedD')
-      );
-      return;
+    );
+    return;
 }
 
 async function Sort(input) {
-    
-    var number=datarows[0][input.target.id]
+    datarows = Array.from(LimitLevels(starterrows))
+    var number = datarows[0][input.target.id]
     if (input.target.classList.contains("sortedA")) {
         if (!isNaN(number)) {
             datarows.sort(function (a, b) {
                 return b[input.target.id] - a[input.target.id]
             })
         }
-        else{
-            datarows.sort(function(a,b){ return a[input.target.id] > b[input.target.id] ? 1 : -1; })
+        else {
+            datarows.sort(function (a, b) { return a[input.target.id] > b[input.target.id] ? 1 : -1; })
         }
         await CleanElements()
         input.target.classList.add("sortedD")
@@ -111,7 +111,7 @@ async function Sort(input) {
     }
     else if (input.target.classList.contains("sortedD")) {
         await CleanElements()
-        datarows = Array.from(starterrows)
+
 
     }
     else {
@@ -120,8 +120,8 @@ async function Sort(input) {
                 return a[input.target.id] - b[input.target.id]
             })
         }
-        else{
-            datarows.sort(function(a,b){ return a[input.target.id] > b[input.target.id] ? 1 : -1; })
+        else {
+            datarows.sort(function (a, b) { return a[input.target.id] > b[input.target.id] ? 1 : -1; })
             datarows.reverse()
         }
         await CleanElements()
@@ -134,9 +134,10 @@ async function Sort(input) {
 
 }
 
-function FillRows() {
-    var table = document.getElementById("MainTable")
 
+function FillRows() {
+    datarows = Array.from(LimitLevels(starterrows))
+    var table = document.getElementById("MainTable")
     for (var i = 1; i < table.rows.length; i) {
         table.deleteRow(1);
     }
@@ -150,3 +151,17 @@ function FillRows() {
         table.appendChild(datarow)
     }
 }
+
+
+
+function LimitLevels(inputarray) {
+    start=Number(document.getElementById("min").value)
+    end=Number(document.getElementById("max").value)
+    var levels = headers.indexOf('Level')
+    if(levels>=0){
+        return inputarray.filter(i => i[levels] <= end && i[levels] >= start)
+    }
+    return inputarray
+}
+
+
