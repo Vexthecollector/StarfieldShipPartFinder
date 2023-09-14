@@ -1,0 +1,21 @@
+.SelectButton {
+  background-color: black;
+  color: white;
+}
+
+.active {
+  top: 2px;
+  left: 1px;
+  box-shadow: none;
+  background-color: lightgray;
+}
+table, th, td {
+    
+  border: 1px solid;
+}
+table {
+  border-collapse: collapse;
+}
+#MainTable{
+    width:100%;
+}
