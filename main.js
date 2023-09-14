@@ -42,7 +42,6 @@ function SetButtonAsActive(button) {
     }
     button.classList.add('active')
     button.classList.remove('SelectButton')
-    console.log(button)
 }
 
 var headers
@@ -136,7 +135,7 @@ async function Sort(input) {
 
 
 function FillRows() {
-    datarows = Array.from(LimitLevels(starterrows))
+    //datarows = Array.from(LimitLevels(starterrows))
     var table = document.getElementById("MainTable")
     for (var i = 1; i < table.rows.length; i) {
         table.deleteRow(1);
@@ -152,7 +151,10 @@ function FillRows() {
     }
 }
 
-
+function SetLimit(){
+    datarows = Array.from(LimitLevels(starterrows))
+    FillRows()
+}
 
 function LimitLevels(inputarray) {
     start=Number(document.getElementById("min").value)
